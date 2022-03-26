@@ -20,9 +20,10 @@ function App() {
 
   React.useEffect(async()=>{   
     console.log(db)
-    // 삭제하는 방식                
-    const docRef = doc(db, "bucket","ku3yFR2VzXn9umg1uYQA") //삭제할 데이터 컬렉션과 id 불러온다.
-    deleteDoc(docRef)
+    
+    addDoc(collection(db, "buckets"), {text:"new", completed: false})
+    // 컬렉션을 미리 만들어두지 않아도 "⬆" 에 적으면 db에 바로 생성되면서 저장 된다.
+
   },[])
 
   const addBucketList = () => {
