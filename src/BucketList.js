@@ -2,10 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 
-import { useHistory } from "react-router-dom";
-
-const BucketList = (props) => {
-  let history = useHistory();
+const BucketList = props => {
   console.log(props);
   const my_lists = props.list;
 
@@ -13,13 +10,7 @@ const BucketList = (props) => {
     <ListStyle>
       {my_lists.map((list, index) => {
         return (
-          <ItemStyle
-            className="list_item"
-            key={index}
-            onClick={() => {
-              history.push("/detail");
-            }}
-          >
+          <ItemStyle className="list_item" key={index} onClick={() => {}}>
             {list}
           </ItemStyle>
         );

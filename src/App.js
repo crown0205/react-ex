@@ -1,25 +1,22 @@
 import React from "react";
-import styled from "styled-components";
-import { Route } from "react-router-dom";
-
 // BucketList 컴포넌트를 import 해옵니다.
 // import [컴포넌트 명] from [컴포넌트가 있는 파일경로];
 import BucketList from "./BucketList";
-import Detail from "./Detail";
-
+import styled from "styled-components";
 
 function App() {
-
-  const [list, setList] = React.useState(["영화관 가기", "매일 책읽기", "수영 배우기"]);
+  const [list, setList] = React.useState([
+    "영화관 가기",
+    "매일 책읽기",
+    "수영 배우기",
+  ]);
   const text = React.useRef(null);
 
   const addBucketList = () => {
-    // 스프레드 문법! 기억하고 계신가요? :) 
+    // 스프레드 문법! 기억하고 계신가요? :)
     // 원본 배열 list에 새로운 요소를 추가해주었습니다.
     setList([...list, text.current.value]);
-  }
-
-  console.log(list);
+  };
   return (
     <div className="App">
       <Container>
@@ -27,14 +24,7 @@ function App() {
         <Line />
         {/* 컴포넌트를 넣어줍니다. */}
         {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
-        <Route
-          path="/"
-          exact
-          render={(props) => (
-            <BucketList list={list}/>
-          )}
-        />
-        <Route path="/detail" component={Detail} />
+        <BucketList list={list} />
       </Container>
       {/* 인풋박스와 추가하기 버튼을 넣어줬어요. */}
       <Input>
