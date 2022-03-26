@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cerateBucket } from "./redux/modules/bucket";
 import { db } from "./firebase";
-import { collection, doc, getDoc, getDocs, addDoc, updateDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc } from "firebase/firestore";
 
 import BucketList from "./BucketList";
 import Detail from "./Detail";
@@ -20,9 +20,9 @@ function App() {
 
   React.useEffect(async()=>{   
     console.log(db)
-    // 수정하는 방식                
-    const docRef = doc(db, "bucket","6QAIh70UV7oaPUU8Pshn") //수정한 데이터 컬렉션과 id 불러온다.
-    updateDoc(docRef, {completed: true}); //수정할 데이터를 변수로 불러와 수정할 데이터를 넣어준다.
+    // 삭제하는 방식                
+    const docRef = doc(db, "bucket","ku3yFR2VzXn9umg1uYQA") //삭제할 데이터 컬렉션과 id 불러온다.
+    deleteDoc(docRef)
   },[])
 
   const addBucketList = () => {
