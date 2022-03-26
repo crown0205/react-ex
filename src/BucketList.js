@@ -2,12 +2,13 @@
 import React from "react";
 import styled from "styled-components";
 import { useHistory } from "react-router-dom"
+import { useSelector } from "react-redux";
 
 const BucketList = props => {
-  console.log(props);
   const history = useHistory();
-  const my_lists = props.list;
-
+  const my_lists = useSelector((state)=>state.bucket.list) //스토어가 보내는 전체 데이터
+                  // useSelector 사용해서 리덕스에 있는 초기값을 가져와서 랜더링해야됨!
+                  // 14번째줄처럼!! map 사용 가능~!
   return (
     <ListStyle>
       {my_lists.map((list, index) => {
