@@ -23,7 +23,7 @@ function App() {
     console.log('버튼 눌림! onClick')
     dispatch(cerateBucket(text.current.value));
   };
-  
+
   return (
     <div className="App">
       <Container>
@@ -49,9 +49,11 @@ function App() {
         <input type="text" ref={text} />
         <button onClick={addBucketList}>추가하기</button>
       </Input>
-      <btton onClick={()=>{
-        window.scrollTo({top:0, left:0, behavior:"smooth"}) // 스크롤 스무스 하게 올라가기
-      }}>⬆</btton>
+      <BtnUp onClick={()=>{
+        window.scrollTo({top:0,left:0, behavior:"smooth"})
+      }}>
+        ⬆
+      </BtnUp>
     </div>
   );
 }
@@ -85,5 +87,19 @@ const Line = styled.hr`
   margin: 16px 0px;
   border: 1px dotted #ddd;
 `;
+
+const BtnUp = styled.button`
+  width: 50px;
+  height: 50px;
+  background-color: #aaa;
+  outline: none;
+  border: none;
+  border-radius: 50%;
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  font-size: 26px;
+`
+
 
 export default App;
