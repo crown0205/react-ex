@@ -24,7 +24,7 @@ const Detail = (props) => {
 
     <button onClick={()=>{
       // console.log('삭제 버튼 눌림')
-      // history.goBack();
+      history.push("/");
       dispatch(deleteBucket(bucket_index)) 
     }}>                                  
 
