@@ -17,7 +17,7 @@ const initState = {
 // Action Creators
 export function cerateBucket(bucket) {
   console.log("액션타입 체크 함");
-  console.log(bucket)
+  console.log(bucket);
   return { type: CREATE, bucket: bucket };
 }
 
@@ -36,8 +36,11 @@ export function updateBucket(bucket_index) {
 export default function reducer(state = initState, action = {}) {
   switch (action.type) {
     case "bucket/CREATE": {
-      console.log("Reducer",state, action)
-      const new_bucket_list = [...state.list, {text: action.bucket, completed: false}]; // 여기에 입력값의 분류를 해주면 된다!!
+      console.log("Reducer", state, action);
+      const new_bucket_list = [
+        ...state.list,
+        { text: action.bucket, completed: false },
+      ]; // 여기에 입력값의 분류를 해주면 된다!!
       return { list: new_bucket_list };
     }
 

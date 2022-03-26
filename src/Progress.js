@@ -29,7 +29,7 @@ const ProgressBar = styled.div`
 const HighLight = styled.div`
   background-color: orange;
   transition: 1s;
-  width: ${(props)=>props.width};
+  width: ${props => props.width};
   height: 40px;
 `;
 export default Progress;

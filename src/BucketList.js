@@ -1,21 +1,26 @@
 // 리액트 패키지를 불러옵니다.
 import React from "react";
 import styled from "styled-components";
-import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 const BucketList = props => {
   const history = useHistory();
-  const my_lists = useSelector((state)=>state.bucket.list) 
-  
+  const my_lists = useSelector(state => state.bucket.list);
+
   return (
     <ListStyle>
       {my_lists.map((list, index) => {
         // console.log(list)
         return (
-          <ItemStyle completed={list.completed} className="list_item" key={index} onClick={() => {
-            history.push('/detail/'+ index)
-          }}>
+          <ItemStyle
+            completed={list.completed}
+            className="list_item"
+            key={index}
+            onClick={() => {
+              history.push("/detail/" + index);
+            }}
+          >
             {list.text}
           </ItemStyle>
         );
@@ -35,7 +40,7 @@ const ListStyle = styled.div`
 const ItemStyle = styled.div`
   padding: 16px;
   margin: 8px;
-  background-color: ${(props)=>props.completed ? "orange": "aliceblue"};
+  background-color: ${props => (props.completed ? "orange" : "aliceblue")};
 `;
 
 export default BucketList;

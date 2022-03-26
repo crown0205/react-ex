@@ -4,7 +4,15 @@ import { Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cerateBucket } from "./redux/modules/bucket";
 import { db } from "./firebase";
-import { collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc } from "firebase/firestore";
+import {
+  collection,
+  doc,
+  getDoc,
+  getDocs,
+  addDoc,
+  updateDoc,
+  deleteDoc,
+} from "firebase/firestore";
 
 import BucketList from "./BucketList";
 import Detail from "./Detail";
@@ -18,27 +26,23 @@ function App() {
   const text = React.useRef(null);
   const dispatch = useDispatch();
 
-  React.useEffect(async()=>{   
-    console.log(db)
-    
-    addDoc(collection(db, "buckets"), {text:"new", completed: false})
-    // 컬렉션을 미리 만들어두지 않아도 "⬆" 에 적으면 db에 바로 생성되면서 저장 된다.
-
-  },[])
+  React.useEffect(async () => {
+    console.log(db);
+  }, []);
 
   const addBucketList = () => {
     // 스프레드 문법! 기억하고 계신가요? :)
     // 원본 배열 list에 새로운 요소를 추가해주었습니다.
 
-    console.log('버튼 눌림! onClick')
-    dispatch(cerateBucket(text.current.value));                        
+    console.log("버튼 눌림! onClick");
+    dispatch(cerateBucket(text.current.value));
   };
 
   return (
     <div className="App">
       <Container>
         <Title>내 버킷리스트</Title>
-        <Progress/>
+        <Progress />
         <Line />
         {/* 컴포넌트를 넣어줍니다. */}
         {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
@@ -59,9 +63,11 @@ function App() {
         <input type="text" ref={text} />
         <button onClick={addBucketList}>추가하기</button>
       </Input>
-      <BtnUp onClick={()=>{
-        window.scrollTo({top:0,left:0, behavior:"smooth"})
-      }}>
+      <BtnUp
+        onClick={() => {
+          window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
+        }}
+      >
         ⬆
       </BtnUp>
     </div>
@@ -109,7 +115,6 @@ const BtnUp = styled.button`
   right: 50px;
   bottom: 50px;
   font-size: 26px;
-`
-
+`;
 
 export default App;

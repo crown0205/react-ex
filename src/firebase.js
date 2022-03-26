@@ -14,11 +14,11 @@ const firebaseConfig = {
   storageBucket: "react-ex-cde1a.appspot.com",
   messagingSenderId: "1029423812785",
   appId: "1:1029423812785:web:347d4158b44396b548d290",
-  measurementId: "G-CX58L63QG9"
+  measurementId: "G-CX58L63QG9",
 };
 
 initializeApp(firebaseConfig);
 // Initialize Firebase
 // const app = initializeApp(firebaseConfig);
 
-export const db = getFirestore(); 
+export const db = getFirestore();
