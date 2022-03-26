@@ -1,42 +1,36 @@
-// // 액션 타입을 정해줍니다.
-// const CREATE = "bucket/CREATE";
-// const DELETE = "bucket/DELETE";
+// widgets.js
 
-// // 초기 상태값을 만들어줍니다.
-// const initialState = {
-//   list: ["영화관 가기", "매일 책읽기", "수영 배우기"],
-// };
+// Actions
+// const LOAD = "my-app/widgets/LOAD"; // 서버에서 가져올때 쓰는거
+const CREATE = "bucket/CREATE";
 
-// // 액션 생성 함수예요.
-// // 액션을 만들어줄 함수죠!
-// export function createBucket(bucket) {
-//   console.log("액션을 생성할거야!");
-//   return { type: CREATE, bucket: bucket };
-// }
+const initState = {
+  list : [
+    "영화관 가기",
+    "매일 책읽기",
+    "수영 배우기",
+  ]
+}
 
-// export function deleteBucket(bucket_index) {
-//   console.log("지울 버킷 인덱스", bucket_index);
-//   return { type: DELETE, bucket_index };
-// }
+// Action Creators
+export function cerateBucket(bucket){
+  return {type: CREATE, bucket: bucket}  // bucket값이 새로운 데이터다 그게 action으로 받아진다.
+}                                        // "action.bucket" 25번째열
 
-// // 리듀서예요.
-// // 실질적으로 store에 들어가 있는 데이터를 변경하는 곳이죠!
-// export default function reducer(state = initialState, action = {}) {
-//   switch (action.type) {
-//     case "bucket/CREATE": {
-//       console.log("이제 값을 바꿀거야!");
-//       const new_bucket_list = [...state.list, action.bucket];
-//       return { list: new_bucket_list };
-//     }
+// Reducer                      // 기본값 <= 7번째열  // action에 값이 없으면 빈배열이 들어간다라는 의미.
+export default function reducer(state = initState, action = {}) {
+  switch (action.type) {
+    case "bucket/CARATE": {                                   // 새 데이터를 반환하는 리듀서 
+      const new_bucket_list = [...state.list, action.bucket]; // 그게 새데이터인 "bucket: bucket"가 기존 배열을 복사한거에다가 새로운 데이터를 받아 추가하는거다. 
+      return {list: new_bucket_list};                         // action으로 받아진다.
+    }
+    default:
+      return state;
+  }
+}
 
-//     case "bucket/DELETE": {
-//       const new_bucket_list = state.list.filter((l, idx) => {
-//         return parseInt(action.bucket_index) !== idx;
-//       });
-
-//       return { list: new_bucket_list };
-//     }
-//     default:
-//       return state;
-//   }
+// e.g. thunks, epics, etc // 미들웨어를 설정하는것.
+// export function getWidget() {
+//   return dispatch =>
+//     get("/widget").then(widget => dispatch(updateWidget(widget)));
 // }
