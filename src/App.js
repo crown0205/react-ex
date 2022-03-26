@@ -18,7 +18,7 @@ function App() {
   const addBucketList = () => {
     // 스프레드 문법! 기억하고 계신가요? :)
     // 원본 배열 list에 새로운 요소를 추가해주었습니다.
-    
+
     console.log('버튼 눌림! onClick')
     dispatch(cerateBucket(text.current.value));
   };
@@ -33,7 +33,7 @@ function App() {
           <Route path="/" exact>
             <BucketList list={list} />
           </Route>
-          <Route path="/detail" exact>
+          <Route path="/detail/:index" exact>
             <Detail />
           </Route>
           <Route>

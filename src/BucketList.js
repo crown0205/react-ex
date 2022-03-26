@@ -14,7 +14,7 @@ const BucketList = props => {
       {my_lists.map((list, index) => {
         return (
           <ItemStyle className="list_item" key={index} onClick={() => {
-            history.push('/detail')
+            history.push('/detail/'+ index)
           }}>
             {list}
           </ItemStyle>
