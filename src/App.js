@@ -4,7 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cerateBucket } from "./redux/modules/bucket";
 import { db } from "./firebase";
-import { collection, doc, getDoc, getDocs, addDoc } from "firebase/firestore";
+import { collection, doc, getDoc, getDocs, addDoc, updateDoc } from "firebase/firestore";
 
 import BucketList from "./BucketList";
 import Detail from "./Detail";
@@ -20,10 +20,9 @@ function App() {
 
   React.useEffect(async()=>{   
     console.log(db)
-
-    addDoc(collection(db, "bucket"), {text: "new", completed: false}) 
-    // 파이어 베이스에 데이터 저장하는 방식. 앞쪽에 "(db, "bucket")" 여기가 저장할 db를 지정해주는거,
-    // 뒤에 있는 "{text: "new", completed: false}" 여기가 저장해줄 데이터 방식 정하는거.
+    // 수정하는 방식                
+    const docRef = doc(db, "bucket","6QAIh70UV7oaPUU8Pshn") //수정한 데이터 컬렉션과 id 불러온다.
+    updateDoc(docRef, {completed: true}); //수정할 데이터를 변수로 불러와 수정할 데이터를 넣어준다.
   },[])
 
   const addBucketList = () => {
