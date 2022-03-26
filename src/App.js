@@ -21,7 +21,8 @@ function App() {
     // 원본 배열 list에 새로운 요소를 추가해주었습니다.
 
     console.log('버튼 눌림! onClick')
-    dispatch(cerateBucket(text.current.value));
+    // dispatch(cerateBucket(text.current.value));                        // 데이터 생성시 데이터 방법 
+    dispatch(cerateBucket({text: text.current.value, completed: false})); // 이렇게 하는 방법도 있음.. 분류 할때
   };
 
   return (
