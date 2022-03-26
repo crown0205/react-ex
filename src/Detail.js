@@ -17,7 +17,7 @@ const Detail = (props) => {
     <h1>{bucket_text}</h1>
     <button onClick={()=>{
       console.log('삭제 버튼 눌림')
-      // history.goBack();
+      history.goBack();
       dispatch(deleteBucket(bucket_index)) // 4) 버튼에 dispatch를 통해 액션 함수 실행, 
     }}>                                   {/*  그리고 item의 몇번째인지 알아야하기 때문에 index를 같이 넘겨서 redux로 보내준다 */}
 
