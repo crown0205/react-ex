@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cerateBucket } from "./redux/modules/bucket";
+import { db } from "./firebase";
 
 import BucketList from "./BucketList";
 import Detail from "./Detail";
@@ -16,13 +17,16 @@ function App() {
   const text = React.useRef(null);
   const dispatch = useDispatch();
 
+  React.useEffect(()=>{
+    console.log(db)
+  })
+
   const addBucketList = () => {
     // 스프레드 문법! 기억하고 계신가요? :)
     // 원본 배열 list에 새로운 요소를 추가해주었습니다.
 
     console.log('버튼 눌림! onClick')
-    // dispatch(cerateBucket(text.current.value));                        // 데이터 생성시 데이터 방법 
-    dispatch(cerateBucket({text: text.current.value, completed: false})); // 이렇게 하는 방법도 있음.. 분류 할때
+    dispatch(cerateBucket(text.current.value));                        
   };
 
   return (
