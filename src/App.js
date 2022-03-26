@@ -4,6 +4,7 @@ import { Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { cerateBucket } from "./redux/modules/bucket";
 import { db } from "./firebase";
+import { collection, doc, getDoc, getDocs } from "firebase/firestore";
 
 import BucketList from "./BucketList";
 import Detail from "./Detail";
@@ -17,9 +18,14 @@ function App() {
   const text = React.useRef(null);
   const dispatch = useDispatch();
 
-  React.useEffect(()=>{
-    console.log(db)
-  })
+  React.useEffect(async()=>{  // firebase에서 데이터를 사용하려면 async await을 사용해 데이터를 받을수 있다.
+    // console.log(db)
+    const query = await getDocs(collection(db, "bucket")) // db에 접근해 컬렉션에 있는 모든 정보를 불러오는 애
+    console.log(query)
+    query.forEach((doc)=>{
+      console.log(doc.id, doc.data())  // doc내에에 id와 data를 확인.
+    })
+  },[])
 
   const addBucketList = () => {
     // 스프레드 문법! 기억하고 계신가요? :)
