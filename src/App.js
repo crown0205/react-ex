@@ -7,6 +7,7 @@ import { cerateBucket } from "./redux/modules/bucket";
 import BucketList from "./BucketList";
 import Detail from "./Detail";
 import NotFound from "./NotFound";
+import Progress from "./Progress";
 // BucketList 컴포넌트를 import 해옵니다.
 // import [컴포넌트 명] from [컴포넌트가 있는 파일경로];
 
@@ -19,13 +20,14 @@ function App() {
     // 스프레드 문법! 기억하고 계신가요? :)
     // 원본 배열 list에 새로운 요소를 추가해주었습니다.
 
-    console.log('버튼 눌림! onClick')
+    // console.log('버튼 눌림! onClick')
     dispatch(cerateBucket(text.current.value));
   };
   return (
     <div className="App">
       <Container>
         <Title>내 버킷리스트</Title>
+        <Progress/>
         <Line />
         {/* 컴포넌트를 넣어줍니다. */}
         {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}

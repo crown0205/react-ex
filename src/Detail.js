@@ -17,12 +17,12 @@ const Detail = (props) => {
     <>
     <h1>{bucket_text}</h1>
     <button onClick={()=>{
-      console.log('완료버튼 누름~!!')
+      // console.log('완료버튼 누름~!!')
       dispatch(updateBucket(bucket_index))
     }}>완료하기</button>
 
     <button onClick={()=>{
-      console.log('삭제 버튼 눌림')
+      // console.log('삭제 버튼 눌림')
       history.goBack();
       dispatch(deleteBucket(bucket_index)) 
     }}>                                  
