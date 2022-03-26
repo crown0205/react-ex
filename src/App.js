@@ -3,6 +3,8 @@ import React from "react";
 // import [컴포넌트 명] from [컴포넌트가 있는 파일경로];
 import BucketList from "./BucketList";
 import styled from "styled-components";
+import {Route} from "react-router-dom"
+import Detail from "./Detail"
 
 function App() {
   const [list, setList] = React.useState([
@@ -24,7 +26,12 @@ function App() {
         <Line />
         {/* 컴포넌트를 넣어줍니다. */}
         {/* <컴포넌트 명 [props 명]={넘겨줄 것(리스트, 문자열, 숫자, ...)}/> */}
-        <BucketList list={list} />
+        <Route path="/" exact>
+          <BucketList list={list} />
+        </Route>
+        <Route path="/detail" exact>
+          <Detail />
+        </Route>
       </Container>
       {/* 인풋박스와 추가하기 버튼을 넣어줬어요. */}
       <Input>
