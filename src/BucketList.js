@@ -6,17 +6,17 @@ import { useSelector } from "react-redux";
 
 const BucketList = props => {
   const history = useHistory();
-  const my_lists = useSelector((state)=>state.bucket.list) //스토어가 보내는 전체 데이터
-                  // useSelector 사용해서 리덕스에 있는 초기값을 가져와서 랜더링해야됨!
-                  // 14번째줄처럼!! map 사용 가능~!
+  const my_lists = useSelector((state)=>state.bucket.list) 
+  
   return (
     <ListStyle>
       {my_lists.map((list, index) => {
+        console.log(list)
         return (
-          <ItemStyle className="list_item" key={index} onClick={() => {
+          <ItemStyle completed={list.completed} className="list_item" key={index} onClick={() => {
             history.push('/detail/'+ index)
           }}>
-            {list}
+            {list.text}
           </ItemStyle>
         );
       })}
@@ -35,7 +35,7 @@ const ListStyle = styled.div`
 const ItemStyle = styled.div`
   padding: 16px;
   margin: 8px;
-  background-color: aliceblue;
+  background-color: ${(props)=>props.completed ? "orange": "aliceblue"};
 `;
 
 export default BucketList;
