@@ -3,17 +3,12 @@ import React from "react";
 import styled from "styled-components";
 
 import { useHistory } from "react-router-dom";
-// redux 훅 중, useSelector를 가져옵니다.
-import { useSelector } from "react-redux";
 
 const BucketList = (props) => {
   let history = useHistory();
-  //   이 부분은 주석처리!
-  //   console.log(props);
-  //   const my_lists = props.list;
-  // 여기에서 state는 리덕스 스토어가 가진 전체 데이터예요.
-  // 우리는 그 중, bucket 안에 들어있는 list를 가져옵니다.
-  const my_lists = useSelector((state) => state.bucket.list);
+  console.log(props);
+  const my_lists = props.list;
+
   return (
     <ListStyle>
       {my_lists.map((list, index) => {
@@ -22,7 +17,7 @@ const BucketList = (props) => {
             className="list_item"
             key={index}
             onClick={() => {
-              history.push("/detail/"+index);
+              history.push("/detail");
             }}
           >
             {list}
