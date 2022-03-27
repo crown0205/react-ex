@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { cerateBucket } from "./redux/modules/bucket";
+import { cerateBucket, loadBucketFB } from "./redux/modules/bucket";
 import { db } from "./firebase";
 import {
   collection,
@@ -26,8 +26,8 @@ function App() {
   const text = React.useRef(null);
   const dispatch = useDispatch();
 
-  React.useEffect(async () => {
-    console.log(db);
+  React.useEffect(() => {
+    dispatch(loadBucketFB())
   }, []);
 
   const addBucketList = () => {
