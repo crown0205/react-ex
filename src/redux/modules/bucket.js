@@ -19,10 +19,7 @@ const UPDATE = "bucket/UPDATE";
 
 const initState = {
   list: [
-    { text: "영화관 가기", completed: false },
-    { text: "매일 책읽기", completed: false },
-    { text: "수영 배우기", completed: false },
-    { text: "공부 하기", completed: false },
+    { text: "", completed: false }
   ],
 };
 
@@ -59,7 +56,7 @@ export const loadBucketFB = () => {   // 5) 미들웨어 설정
 
     bucket_data.forEach((bucket_item)=> {
       console.log(bucket_item.data()) // db에 있는 각 데이터를 하나씩 콘솔에 찍어준다.
-      bucket_list.push({...bucket_item.data()}) // 우리가 쓰기 쉽게 "let bucket_list = []"에 하나씩 넣어준다
+      bucket_list.push({id:bucket_item.id,...bucket_item.data()})  // 데이터를 변경하거나 삭제하기 위해서는 item의 id값도 같이 불러와줘야 된다.
     })
 
     console.log(bucket_list) // 우리가 원하는 데이터 형식으로 잘 들어옴.
