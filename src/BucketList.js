@@ -11,7 +11,6 @@ const BucketList = props => {
   return (
     <ListStyle>
       {my_lists.map((list, index) => {
-        // console.log(list)
         return (
           <ItemStyle
             completed={list.completed}

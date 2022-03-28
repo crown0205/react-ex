@@ -27,48 +27,38 @@ export function loadBucket(bucket_list) {
 }
 
 export function cerateBucket(bucket) {
-  console.log("액션타입 체크 함");
-  console.log(bucket);
   return { type: CREATE, bucket: bucket };
 }
 
 export function deleteBucket(bucket_index) {
-  // console.log("지울 인덱스", bucket_index);
   return { type: DELETE, bucket_index };
 }
 
 export function updateBucket(bucket_index) {
-  // console.log("업데이트 할 인덱스", bucket_index);
   return { type: UPDATE, bucket_index };
 }
 
-//middlewares
+//Middlewares
 export const loadBucketFB = () => {
   return async function (dispatch) {
     const bucket_data = await getDocs(collection(db, "bucket"));
-    // console.log(bucket_data)
 
     let bucket_list = [];
 
     bucket_data.forEach(bucket_item => {
-      // console.log(bucket_item.data());
       bucket_list.push({ id: bucket_item.id, ...bucket_item.data() });
     });
-
-    console.log(bucket_list);
 
     dispatch(loadBucket(bucket_list));
   };
 };
 
-export const addBucketFE = bucket => {  
+export const addBucketFE = bucket => {
   return async function (dispatch) {
     const docRef = await addDoc(collection(db, "bucket"), bucket);
-    // const _bucket = await getDoc(docRef); 
-    const bucket_data = { id: docRef.id, ...bucket }; // 이렇게 간단히 하는 방법도 있다.....
-  
-    // console.log("docRef",(await getDoc(docRef)).data(), docRef.id)  데이터가 전부 있는지 확인함.
-    dispatch(cerateBucket(bucket_data)); 
+    const bucket_data = { id: docRef.id, ...bucket };
+
+    dispatch(cerateBucket(bucket_data));
   };
 };
 
@@ -80,11 +70,10 @@ export default function reducer(state = initState, action = {}) {
     }
 
     case "bucket/CREATE": {
-      console.log("Reducer", state, action);
       const new_bucket_list = [
         ...state.list,
-        { text: action.bucket.text, completed: false }, 
-      ];                                               
+        { text: action.bucket.text, completed: false },
+      ];
       return { list: new_bucket_list };
     }
 

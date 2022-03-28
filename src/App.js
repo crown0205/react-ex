@@ -2,7 +2,11 @@ import React from "react";
 import styled from "styled-components";
 import { Route, Switch } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { cerateBucket, loadBucketFB, addBucketFE } from "./redux/modules/bucket";
+import {
+  cerateBucket,
+  loadBucketFB,
+  addBucketFE,
+} from "./redux/modules/bucket";
 import { db } from "./firebase";
 import {
   collection,
@@ -27,13 +31,13 @@ function App() {
   const dispatch = useDispatch();
 
   React.useEffect(() => {
-    dispatch(loadBucketFB())
+    dispatch(loadBucketFB());
   }, []);
 
   const addBucketList = () => {
     // 스프레드 문법! 기억하고 계신가요? :)
     // 원본 배열 list에 새로운 요소를 추가해주었습니다.
-    dispatch(addBucketFE({text: text.current.value, completed: false}))
+    dispatch(addBucketFE({ text: text.current.value, completed: false }));
   };
 
   return (
