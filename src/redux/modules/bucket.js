@@ -1,6 +1,6 @@
 // bucket.js
-import {db} from "../../firebase"  // 3) 파이어베이스에 import 해주기
-import {                         // 4) Doc를 조작하기 위해서 명령어 불러오기
+import { db } from "../../firebase";
+import {
   collection,
   doc,
   getDoc,
@@ -12,20 +12,18 @@ import {                         // 4) Doc를 조작하기 위해서 명령어 �
 import { async } from "@firebase/util";
 
 // Actions
-const LOAD = "bucket/LOAD"; // 1) 타입선언
+const LOAD = "bucket/LOAD";
 const CREATE = "bucket/CREATE";
 const DELETE = "bucket/DELETE";
-const UPDATE = "bucket/UPDATE"; 
+const UPDATE = "bucket/UPDATE";
 
 const initState = {
-  list: [
-    { text: "", completed: false }
-  ],
+  list: [{ text: "", completed: false }],
 };
 
 // Action Creators
-export function loadBucket(bucket_list){ // 2) load닌깐 db에 있는 모든 데이터를 불러와야된다. 그냥 여기서는 변수로 buck_list라고 한거다.
-  return {type:LOAD, bucket_list}
+export function loadBucket(bucket_list) {
+  return { type: LOAD, bucket_list };
 }
 
 export function cerateBucket(bucket) {
@@ -44,42 +42,52 @@ export function updateBucket(bucket_index) {
   return { type: UPDATE, bucket_index };
 }
 
-
 //middlewares
-export const loadBucketFB = () => {   // 5) 미들웨어 설정 
+export const loadBucketFB = () => {
   return async function (dispatch) {
-    const bucket_data = await getDocs(collection(db, "bucket"))
+    const bucket_data = await getDocs(collection(db, "bucket"));
     // console.log(bucket_data)
 
-    // db 데이터를 우리가 원하는 데이터 방식인 배열로 바꿔준다.
-    let bucket_list = []
+    let bucket_list = [];
 
-    bucket_data.forEach((bucket_item)=> {
-      console.log(bucket_item.data()) // db에 있는 각 데이터를 하나씩 콘솔에 찍어준다.
-      bucket_list.push({id:bucket_item.id,...bucket_item.data()})  // 데이터를 변경하거나 삭제하기 위해서는 item의 id값도 같이 불러와줘야 된다.
-    })
+    bucket_data.forEach(bucket_item => {
+      // console.log(bucket_item.data());
+      bucket_list.push({ id: bucket_item.id, ...bucket_item.data() });
+    });
 
-    console.log(bucket_list) // 우리가 원하는 데이터 형식으로 잘 들어옴.
+    console.log(bucket_list);
 
-    dispatch(loadBucket(bucket_list)) //load bucket 액션 일으켜 준다. (버킷리스트 데이터 고쳐달라고 요청 끝남.) 하지만 라듀서에 고쳐주지 않아 화면상에서는 바뀌지 않는다.
-    // "⬆️" 53번째 "dispatch"를 받아온다.
-  } 
-}
+    dispatch(loadBucket(bucket_list));
+  };
+};
 
+export const addBucketFE = bucket => {  // 1)
+  return async function (dispatch) {
+    const docRef = await addDoc(collection(db, "bucket"), bucket);
+    const _bucket = await getDoc(docRef); // 2) 저장된 값을 리덕스로 보내 화면에 보이게 하기위해..
+    const bucket_data = { id: _bucket.id, ..._bucket.data() }; // 2.5)
+    // console.log((await getDoc(docRef)).data()) // 이렇게 해야 콘솔에 저장되는 값을 볼수 있다.
+
+    console.log(bucket_data); // 3) 콘솔창에도 저장된 데이터 값 나옴
+
+    // dispatch(cerateBucket({id: _bucket.id, ..._bucket.data()}))  // 4.5) 이렇게 해줘도 상관은 없다.
+    dispatch(cerateBucket(bucket_data)); // 4)
+  };
+};
 
 // Reducer
 export default function reducer(state = initState, action = {}) {
   switch (action.type) {
-    case "bucket/LOAD" : { // 6) 리듀서에 load한 데이터로 어떻게 화면에 보이게 할지 수정
-      return {list: action.bucket_list} // 이렇게 db에서 받아온 데이터를 기존 list에 데이터를 덮어씌운다.
+    case "bucket/LOAD": {
+      return { list: action.bucket_list };
     }
 
     case "bucket/CREATE": {
       console.log("Reducer", state, action);
       const new_bucket_list = [
         ...state.list,
-        { text: action.bucket, completed: false },
-      ]; 
+        { text: action.bucket.text, completed: false }, // "text: action.bucket" 이렇게 하면 Object 데이터를 그래도 랜더링 하려고 해서 에러가 발생한다.
+      ];                                                // 요소의 특정 요소로 접근해야됨!
       return { list: new_bucket_list };
     }
 

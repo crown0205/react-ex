@@ -16,7 +16,7 @@ const BucketList = props => {
           <ItemStyle
             completed={list.completed}
             className="list_item"
-            key={index}
+            key={`item_${index}`}
             onClick={() => {
               history.push("/detail/" + index);
             }}
