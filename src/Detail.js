@@ -2,7 +2,7 @@
 import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteBucket, updateBucketFB } from "./redux/modules/bucket";
+import { deletedBucketFB, updateBucketFB } from "./redux/modules/bucket";
 
 const Detail = props => {
   const history = useHistory();
@@ -18,10 +18,8 @@ const Detail = props => {
       <h1>{bucket_text ? bucket_list[pramas.index].text : ""}</h1>
       <button
         onClick={() => {
-          // console.log('완료버튼 누름~!!')
-          // dispatch(updateBucket(bucket_index));
           dispatch(updateBucketFB(bucket_list[pramas.index].id));
-          // history.goBack();
+          history.goBack();
         }}
       >
         완료하기
@@ -29,9 +27,8 @@ const Detail = props => {
 
       <button
         onClick={() => {
-          // console.log('삭제 버튼 눌림')
+          dispatch(deletedBucketFB(bucket_list[pramas.index].id))
           history.push("/");
-          dispatch(deleteBucket(bucket_index));
         }}
       >
         삭제하기
