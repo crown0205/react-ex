@@ -2,7 +2,7 @@
 import React from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { deleteBucket, updateBucket } from "./redux/modules/bucket";
+import { deleteBucket, updateBucketFB } from "./redux/modules/bucket";
 
 const Detail = props => {
   const history = useHistory();
@@ -11,16 +11,17 @@ const Detail = props => {
   const bucket_list = useSelector(state => state.bucket.list);
   const bucket_index = pramas.index;
   const bucket_text = bucket_list[pramas.index].text;
-  console.log(bucket_text);
+  console.log(bucket_list[pramas.index].id);
 
   return (
     <>
-      <h1>{bucket_text}</h1>
+      <h1>{bucket_text ? bucket_list[pramas.index].text : ""}</h1>
       <button
         onClick={() => {
           // console.log('완료버튼 누름~!!')
-          dispatch(updateBucket(bucket_index));
-          history.goBack();
+          // dispatch(updateBucket(bucket_index));
+          dispatch(updateBucketFB(bucket_list[pramas.index].id));
+          // history.goBack();
         }}
       >
         완료하기
