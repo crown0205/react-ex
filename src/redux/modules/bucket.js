@@ -61,17 +61,14 @@ export const loadBucketFB = () => {
   };
 };
 
-export const addBucketFE = bucket => {  // 1)
+export const addBucketFE = bucket => {  
   return async function (dispatch) {
     const docRef = await addDoc(collection(db, "bucket"), bucket);
-    const _bucket = await getDoc(docRef); // 2) 저장된 값을 리덕스로 보내 화면에 보이게 하기위해..
-    const bucket_data = { id: _bucket.id, ..._bucket.data() }; // 2.5)
-    // console.log((await getDoc(docRef)).data()) // 이렇게 해야 콘솔에 저장되는 값을 볼수 있다.
-
-    console.log(bucket_data); // 3) 콘솔창에도 저장된 데이터 값 나옴
-
-    // dispatch(cerateBucket({id: _bucket.id, ..._bucket.data()}))  // 4.5) 이렇게 해줘도 상관은 없다.
-    dispatch(cerateBucket(bucket_data)); // 4)
+    // const _bucket = await getDoc(docRef); 
+    const bucket_data = { id: docRef.id, ...bucket }; // 이렇게 간단히 하는 방법도 있다.....
+  
+    // console.log("docRef",(await getDoc(docRef)).data(), docRef.id)  데이터가 전부 있는지 확인함.
+    dispatch(cerateBucket(bucket_data)); 
   };
 };
 
@@ -86,8 +83,8 @@ export default function reducer(state = initState, action = {}) {
       console.log("Reducer", state, action);
       const new_bucket_list = [
         ...state.list,
-        { text: action.bucket.text, completed: false }, // "text: action.bucket" 이렇게 하면 Object 데이터를 그래도 랜더링 하려고 해서 에러가 발생한다.
-      ];                                                // 요소의 특정 요소로 접근해야됨!
+        { text: action.bucket.text, completed: false }, 
+      ];                                               
       return { list: new_bucket_list };
     }
 
